@@ -9,13 +9,19 @@ app.use(bodyParser.json());
 
 // Veritabanı bağlantısı ayarları
 const dbConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: 'Sanane338070?',
-    database: 'yemekhane_sistemi',
-    timezone: '+03:00' // Zaman dilimi ayarı
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || 'Sanane338070?',
+    database: process.env.DB_NAME || 'yemekhane_sistemi',
+    timezone: process.env.DB_TIMEZONE || '+03:00' // Varsayılan olarak Türkiye saat dilimi
 };
+
 let db; // Global bağlantı değişkeni
+app.use(cors({
+    origin: 'https://frontend-uygulama-linki.com', // Yalnızca bu URL'ye izin ver
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // İzin verilen HTTP yöntemleri
+    credentials: true
+}));
 
 // Veritabanı bağlantısı oluşturma
 async function connectToDatabase() {
