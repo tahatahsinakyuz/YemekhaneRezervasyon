@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!localStorage.getItem("sessionToken")) {
+                alert("Bu sayfaya erişmek için giriş yapmalısınız!");
+                window.location.href = "kullanici-dogrulama.html?redirect=" + window.location.pathname;
+            }
+        });
+        
+    </script>
+    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bakiye İşlemleri</title>
+    <link rel="stylesheet" href="bakiye.css">
+    <script src="script.js"></script>
+
+</head>
+<body>
+    <div class="balance-container">
+<!-- Üst Bilgi -->
+<div class="header">
+    <div class="user-info">
+        <!-- Dinamik içerik buraya JavaScript ile yüklenecek -->
+    </div>
+    <div class="balance-info">
+        <!-- Dinamik içerik buraya JavaScript ile yüklenecek -->
+    </div>
+</div>
+
+
+<!-- İşlem Geçmişi -->
+<div class="transaction-history">
+    <h2>Bakiye İşlemleri Geçmişi</h2>
+    <div class="transaction-cards">
+        <!-- Dinamik içerik JavaScript ile yüklenecek -->
+    </div>
+</div>
+
+
+        <!-- Bakiye Yükleme Bölümü -->
+        <div class="balance-top-up">
+            <h2>Bakiye Yükleme</h2>
+            <button class="top-up-button" onclick="openTopUpForm()">Bakiye Yükle</button>
+
+            <!-- Yükleme Formu -->
+            <div class="top-up-form" id="top-up-form">
+                <h3>Bakiye Yükleme</h3>
+                <form>
+                    <div class="form-group">
+                        <label for="card-number">Kart Numarası:</label>
+                        <input type="text" id="card-number" placeholder="Kart numaranızı giriniz" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiry-date">Son Kullanma Tarihi:</label>
+                        <input type="text" id="expiry-date" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvc">CVC:</label>
+                        <input type="text" id="cvc" placeholder="Kart arkasındaki 3 haneli kod" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Yüklenecek Tutar:</label>
+                        <input type="number" id="amount" placeholder="Tutar (TL)" required>
+                    </div>
+                    <button type="submit" class="submit-button">Yükle</button>
+                    <button type="button" class="cancel-button" onclick="closeTopUpForm()">İptal</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="Bakiye.js"></script>
+</body>
+</html>

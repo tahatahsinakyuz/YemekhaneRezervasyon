@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervasyon Sayfası</title>
+    <link rel="stylesheet" href="rezervasyon.css">
+    <script src="rezervasyon.js" defer></script>
+</head>
+<body>
+    <div class="reservation-container">
+        <!-- Üst Bilgi Bölümü -->
+        <header class="header">
+            <div class="user-info">
+                <p><strong>Ad Soyad:</strong> Yükleniyor...</p>
+                <p><strong>Okul No:</strong> Yükleniyor...</p>
+            </div>
+            <div class="balance-info">
+                <p><strong>Bakiye:</strong> Yükleniyor...</p>
+            </div>
+        </header>
+
+        <!-- Rezervasyon Geçmişi -->
+        <section class="reservation-history">
+            <h2>Daha Önceki Rezervasyonlar</h2>
+            <div class="reservation-cards">
+                <!-- Rezervasyon geçmişi JavaScript ile buraya yüklenecek -->
+            </div>
+        </section>
+
+        <!-- Bugün İçin Rezervasyon -->
+        <section class="today-reservation">
+            <h2>Bugün - <span id="today-date">Yükleniyor...</span></h2>
+            <p>Bugün için rezervasyon durumu yükleniyor...</p>
+        </section>
+
+        <!-- Haftalık Rezervasyon Planı -->
+        <section class="weekly-plan">
+            <h2>Haftalık Rezervasyon Planı</h2>
+            <div class="calendar">
+                <!-- Haftalık menü JavaScript ile buraya yüklenecek -->
+            </div>
+        </section>
+
+        <!-- Son 5 İşlem Hareketi -->
+        <section class="transaction-history">
+            <h2>Son 5 İşlem Hareketi</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tarih</th>
+                        <th>Saat</th>
+                        <th>Tutar</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="transaction-list">
+                    <!-- İşlemler JavaScript ile buraya yüklenecek -->
+                </tbody>
+            </table>
+        </section>
+    </div>
+</body>
+</html>

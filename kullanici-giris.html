@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <script src="script.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Doğrulama</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #error-message {
+            color: red;
+            display: none;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Kullanıcı Doğrulama</h1>
+        <form id="kullaniciDogrulama">
+            <label for="email">E-posta</label>
+            <input type="email" id="email" required>
+            
+            <label for="sifre">Şifre</label>
+            <input type="password" id="sifre" required>
+        
+            <button type="submit">Giriş Yap</button>
+        </form>
+        <p id="error-message"></p>
+        
+        
+    </div>
+
+    <script>
+    
+    
+        const API_URL = "http://localhost:3000";
+
+        // Yönlendirme yapılacak hedef sayfa
+        const params = new URLSearchParams(window.location.search);
+        const targetPage = params.get("redirect") || "anasayfa.html";
+
+        function validateForm(email, sifre) {
+            if (!email || !sifre) {
+                return "Lütfen tüm alanları doldurun!";
+            }
+            return null;
+        }
+
+        document.getElementById('kullaniciDogrulama').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const sifre = document.getElementById('sifre').value.trim();
+            const errorMessage = document.getElementById("error-message");
+
+            const validationError = validateForm(email, sifre);
+            if (validationError) {
+                errorMessage.style.display = "block";
+                errorMessage.innerText = validationError;
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_URL}/api/kullanici-giris`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email: email, sifre: sifre })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    errorMessage.style.display = "none"; // Hata mesajını gizle
+                    localStorage.setItem("email", email); // Email'i kaydet
+                    alert("Giriş başarılı! Yönlendiriliyorsunuz...");
+                    setTimeout(() => {
+                        window.location.href = targetPage;
+                    }, 1000); // 1 saniye beklemeden sonra yönlendirme
+                } else {
+                    errorMessage.style.display = "block";
+                    errorMessage.innerText = data.message || "Giriş bilgileri hatalı!";
+                }
+            } catch (error) {
+                console.error("Sunucu hatası:", error);
+                errorMessage.style.display = "block";
+                errorMessage.innerText = "Sunucu hatası! Daha sonra tekrar deneyin.";
+            }
+        });
+    </script>
+</body>
+</html>

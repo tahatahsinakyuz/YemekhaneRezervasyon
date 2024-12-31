@@ -1,0 +1,281 @@
+/* Genel Ayarlar */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Üst Panel */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #003366;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+    margin-right: 15px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+}
+
+.admin-panel {
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.admin-panel:hover {
+    background-color: #00264d;
+}
+
+/* Ana İçerik */
+.content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* 3 sütun: Yorumlar, Günün Menüsü, Sağ Panel */
+    gap: 20px;
+    justify-content: center; /* Yatayda ortalama */
+    align-items: start; /* Dikeyde hizalama */
+    margin: 0 auto;
+    max-width: 1200px; /* Sayfanın ortalanması için maksimum genişlik */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Kullanıcı Yorumları */
+.comments {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.comments h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.comments form input,
+.comments form textarea {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comments form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comments form button:hover {
+    background-color: #003366;
+}
+
+.comments .comment-list {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Günün Menüsü */
+.menu-of-the-day {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.menu-of-the-day h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #003366;
+}
+
+.menu-of-the-day .gunun-menusu {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 sütun */
+    gap: 20px;
+    justify-content: center; /* Yatayda ortalama */
+    align-items: center; /* Dikeyde ortalama */
+}
+
+.menu-of-the-day .menu-item {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.menu-of-the-day .menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.menu-of-the-day .menu-item img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.menu-of-the-day .menu-item p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.menu-of-the-day .menu-item p:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Sağ Panel */
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.right-panel .info-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.right-panel .info-box h3 {
+    margin-bottom: 10px;
+}
+
+.right-panel .info-box p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.right-panel .info-box button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.right-panel .info-box button:hover {
+    background-color: #003366;
+}
+/* İlerleyen Günler */
+.upcoming-days {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto 0; /* Yukarıdan 40px boşluk ekle */
+    text-align: center; /* Tüm içeriği ortala */
+}
+
+.upcoming-days h2 {
+    text-align: center;
+    color: #003366;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.upcoming-days .day-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dinamik sütun sayısı */
+    gap: 20px;
+    justify-items: center; /* Kartları ortalamak için */
+}
+
+.upcoming-days .day-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.upcoming-days .day-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.upcoming-days .day-card h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #003366;
+    margin-bottom: 10px;
+}
+
+.upcoming-days .day-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.upcoming-days .day-card ul li {
+    margin-bottom: 5px;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .upcoming-days .day-cards {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}

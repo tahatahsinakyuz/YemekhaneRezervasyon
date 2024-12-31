@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Paneli</title>
+        <script src="script.js" defer></script>
+        <!-- CSS Dosyaları -->
+        <link rel="stylesheet" href="admin.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+        <!-- JavaScript Dosyaları -->
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/tr.js"></script>
+
+    
+        <!-- Giriş Kontrolü -->
+        <script defer>
+            document.addEventListener("DOMContentLoaded", () => {
+                if (!localStorage.getItem("sessionToken")) {
+                    alert("Yetkisiz giriş! Lütfen giriş yapın.");
+                    window.location.href = "admin-giris.html";
+                }
+            });
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+
+    </head>
+    
+<body>
+    <div class="admin-container">
+        <!-- Sol Navigasyon Menüsü -->
+        <nav class="sidebar" id="sidebar">
+            <div class="menu-icon" id="menu-icon">☰</div>
+            <ul>
+                <li class="menu-item" data-section="yemek">
+                    <a href="#yemek-yonetimi">
+                        <i class="icon fas fa-utensils"></i>
+                        <span class="menu-text">Yemek Yönetimi</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-section="menu">
+                    <a href="#menu-yonetimi">
+                        <i class="icon fas fa-list-alt"></i>
+                        <span class="menu-text">Menü Yönetimi</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-section="rezervasyon">
+                    <a href="#rezervasyon-yonetimi">
+                        <i class="icon fas fa-calendar-check"></i>
+                        <span class="menu-text">Rezervasyon Yönetimi</span>
+                    </a>
+                </li>
+                <li class="menu-item" data-section="kullanici">
+                    <a href="#kullanici-yonetimi">
+                        <i class="icon fas fa-users"></i>
+                        <span class="menu-text">Kullanıcı Yönetimi</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Sidebar Alt Kısım -->
+            <div class="sidebar-footer">
+                <a href="index.html" class="footer-item">
+                    <i class="icon fas fa-home"></i>
+                    <span class="menu-text">Ana Sayfa</span>
+                </a>
+
+            </div>
+        </nav>
+
+        <!-- Ana İçerik -->
+        <main class="content">
+            <section id="menu" style="display: none;">
+                <h3>Menü Listeleme</h3>
+                <div>
+                    <label for="startDate">Başlangıç Tarihi:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div>
+                    <label for="endDate">Bitiş Tarihi:</label>
+                    <input type="date" id="endDate">
+                </div>
+                <button id="listeleBtn">Menüleri Listele</button>
+                <div id="menuListesi" class="menu-container">
+                    <!-- Menüler buraya yüklenecek -->
+                </div>
+            </section>
+            
+            
+            <div class="container">
+                <section id="yemek" style="display: block;">
+                    <h1>🍽️ Yemek Yönetimi</h1>
+                    <!-- Tarih Seçimi -->
+                    <div class="tarih-secimi">
+                        <!-- Yemek Yönetimi Tarih Alanı -->
+                        <label for="tarih">Tarih:</label>
+                        <input type="text" id="tarih" placeholder="Tarih seçiniz">
+                    </div>
+                    
+                    <form id="yemekEkleForm">
+                        <div class="yemek-turleri">
+                            <div class="yemek-alani">
+                                <h3>Çorba</h3>
+                                <input type="text" id="corba" placeholder="Çorba ismi giriniz" required>
+                                <input type="text" id="corbaPorsiyon" placeholder="Örn: 200g" required>
+                                <input type="text" id="corbaKalori" placeholder="Örn: 150kcal" required>
+                            </div>
+                            <div class="yemek-alani">
+                                <h3>Ana Yemek</h3>
+                                <input type="text" id="anaYemek" placeholder="Ana yemek ismi giriniz" required>
+                                <input type="text" id="anaYemekPorsiyon" placeholder="Örn: 250g" required>
+                                <input type="text" id="anaYemekKalori" placeholder="Örn: 300kcal" required>
+                            </div>
+                            <div class="yemek-alani">
+                                <h3>Yardımcı Yemek</h3>
+                                <input type="text" id="yardimciYemek" placeholder="Yardımcı yemek ismi giriniz" required>
+                                <input type="text" id="yardimciYemekPorsiyon" placeholder="Örn: 150g" required>
+                                <input type="text" id="yardimciYemekKalori" placeholder="Örn: 200kcal" required>
+                            </div>
+                            <div class="yemek-alani">
+                                <h3>Ekstralar</h3>
+                                <input type="text" id="ekstra" placeholder="Ekstra ismi giriniz" required>
+                                <input type="text" id="ekstraPorsiyon" placeholder="Örn: 100g" required>
+                                <input type="text" id="ekstraKalori" placeholder="Örn: 50kcal" required>
+                            </div>
+                        </div>
+                        <button type="submit">Yemek Ekle</button>
+                    </form>
+                    
+                    <section>
+                        <h2>Son Eklenen Yemekler</h2>
+                        <ul id="eklenenYemekListesi">
+                            <!-- Yemekler buraya eklenecek -->
+                        </ul>
+                    </section>
+                    
+                    <!-- Yemek Seçimleri ve Menü Önerileri -->
+                    <section class="alt-bolum">
+                        <!-- Yemek Seçimleri -->
+                        <div class="yemek-secimleri">
+                            <h3>🍲 Yemek Seçimleri</h3>
+                            <!-- Çorba Kategorisi -->
+                            <div class="kategori">
+                                <h4>Çorbalar</h4>
+                                <input type="text" placeholder="Çorba ara..." class="arama-cubugu">
+                                <ul>
+                                    <li>Mercimek Çorbası</li>
+                                    <li>Ezogelin Çorbası</li>
+                                    <li>Tarhana Çorbası</li>
+                                    <li>Domates Çorbası</li>
+                                </ul>
+                            </div>
+                            <!-- Ana Yemek Kategorisi -->
+                            <div class="kategori">
+                                <h4>Ana Yemekler</h4>
+                                <input type="text" placeholder="Ana yemek ara..." class="arama-cubugu">
+                                <ul>
+                                    <li>Köfte</li>
+                                    <li>Tavuk Izgara</li>
+                                    <li>Et Sote</li>
+                                    <li>Fırın Makarna</li>
+                                </ul>
+                            </div>
+                            <!-- Yardımcı Yemek Kategorisi -->
+                            <div class="kategori">
+                                <h4>Yardımcı Yemekler</h4>
+                                <input type="text" placeholder="Yardımcı yemek ara..." class="arama-cubugu">
+                                <ul>
+                                    <li>Pirinç Pilavı</li>
+                                    <li>Bulgur Pilavı</li>
+                                    <li>Patates Kızartması</li>
+                                    <li>Spagetti</li>
+                                </ul>
+                            </div>
+                            <!-- Ekstralar Kategorisi -->
+                            <div class="kategori">
+                                <h4>Ekstralar</h4>
+                                <input type="text" placeholder="Ekstralar ara..." class="arama-cubugu">
+                                <ul>
+                                    <li>Ayran</li>
+                                    <li>Salata</li>
+                                    <li>Tatlı</li>
+                                    <li>Meyve</li>
+                                </ul>
+                            </div>
+                        </div>
+                
+                        <!-- Menü Önerileri -->
+                        <div class="menu-onerileri">
+                            <h3>📋 Menü Önerileri</h3>
+                            <div id="oneri-listesi">
+                                <p>Henüz bir menü önerisi yok.</p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                
+                <section id="rezervasyon" style="display: none;">
+                    <h1>📅 Rezervasyon Yönetimi</h1>
+                    <div class="filter-bar">
+                        <input type="text" id="filter-name" placeholder="İsim Soyisim Ara">
+                        <input type="date" id="filter-date">
+                        <select id="filter-meal">
+                            <option value="">Tüm Öğünler</option>
+                            <option value="öğle">Öğle</option>
+                            <option value="akşam">Akşam</option>
+                        </select>
+                        <button id="clear-filters">Filtreleri Temizle</button>
+                    </div>
+                    <table id="reservation-table">
+                        <thead>
+                            <tr>
+                                <th>İsim Soyisim</th>
+                                <th>Tarih</th>
+                                <th>Öğün</th>
+                                <th>E-posta</th>
+                                <th>Okul No</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- JavaScript ile doldurulacak -->
+                        </tbody>
+                    </table>
+                    <button id="download-reservations">PDF Olarak İndir</button>
+                </section>
+                
+                
+                
+                </section>
+                <section id="kullanici" style="display: none;">
+                    <h1>👤 Kullanıcı Yönetimi</h1>
+                    <div>
+                        <h3>Yeni Kullanıcı Ekle</h3>
+                        <form id="add-user-form">
+                            <input type="text" id="user-name" placeholder="İsim Soyisim" required>
+                            <input type="email" id="user-email" placeholder="E-posta" required>
+                            <input type="password" id="user-password" placeholder="Şifre" required>
+                            <select id="user-role">
+                                <option value="kullanici">Kullanıcı</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                            <button type="submit">Ekle</button>
+                        </form>
+                    </div>
+                    <div>
+                        <h3>Kullanıcı Listesi</h3>
+                        <table id="user-table">
+                            <thead>
+                                <tr>
+                                    <th>İsim Soyisim</th>
+                                    <th>E-posta</th>
+                                    <th>Rol</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- JavaScript ile doldurulacak -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+                
+            </div>
+        </main>
+    </div>
+</body>
+</html>
